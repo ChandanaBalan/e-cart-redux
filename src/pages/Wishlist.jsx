@@ -1,13 +1,21 @@
 import React from 'react'
 import { faCartShopping, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useSelector } from 'react-redux'
-
+import { useDispatch, useSelector } from 'react-redux'
+import { removeWishlistItem } from '../redux/slices/wishlistSlice'
+import { addItemToCart } from '../redux/slices/cartSlice'
 
 function Wishlist() {
 
   const wishlistArray = useSelector((state) => state.wishlist)
   console.log(wishlistArray);
+
+  const dispatch = useDispatch()
+
+  const wishes = (item)=>{
+    dispatch(addItemToCart(item))
+    dispatch(removeWishlistItem(item.id))
+  }
 
   return (
     <>
@@ -25,8 +33,8 @@ function Wishlist() {
                 <p className='text-justify pt-5'>{item.description.slice(0, 100)}</p>
                 <p className='text-2xl p-3'>Price  <span className='text-violet-600'>$ {item.price}</span></p>
                 <div className='flex justify-between'>
-                  <button className='px-5 py-3 rounded text-white bg-red-600 hover:border hover:bg-transparent hover:border-red-700 hover:text-red-700'><FontAwesomeIcon icon={faTrash} /></button>
-                  <button className='px-5 py-3 rounded text-white bg-green-600 hover:border hover:bg-transparent hover:border-green-600 hover:text-green-600'><FontAwesomeIcon icon={faCartShopping} /></button>
+                  <button onClick={()=>dispatch(removeWishlistItem(item?.id))} className='px-5 py-3 rounded text-white bg-red-600 hover:border hover:bg-transparent hover:border-red-700 hover:text-red-700'><FontAwesomeIcon icon={faTrash} /></button>
+                  <button onClick={()=>wishes(item)} className='px-5 py-3 rounded text-white bg-green-600 hover:border hover:bg-transparent hover:border-green-600 hover:text-green-600'><FontAwesomeIcon icon={faCartShopping} /></button>
                 </div>
 
               </div>

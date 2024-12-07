@@ -4,6 +4,7 @@ import React from 'react'
 import userFetch from '../hooks/useFetch'
 import { useDispatch } from 'react-redux'
 import { addWishlistItems } from '../redux/slices/wishlistSlice'
+import { addItemToCart } from '../redux/slices/cartSlice'
 
 
 function Home() {
@@ -27,7 +28,7 @@ function Home() {
                 <p className='text-2xl p-3'>Price  <span className='text-violet-600'>$ {item.price}</span></p>
                 <div className='flex justify-between'>
                   <button onClick={()=>dispatch(addWishlistItems(item))} className='px-5 py-3 rounded text-white bg-red-600 hover:border hover:bg-transparent hover:border-red-600 hover:text-red-600'><FontAwesomeIcon icon={faHeart} /></button>
-                  <button className='px-5 py-3 rounded text-white bg-green-600 hover:border hover:bg-transparent hover:border-green-600 hover:text-green-600'><FontAwesomeIcon icon={faCartShopping} /></button>
+                  <button onClick={()=>dispatch(addItemToCart(item))} className='px-5 py-3 rounded text-white bg-green-600 hover:border hover:bg-transparent hover:border-green-600 hover:text-green-600'><FontAwesomeIcon icon={faCartShopping} /></button>
                 </div>
 
               </div>
